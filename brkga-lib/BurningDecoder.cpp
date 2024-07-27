@@ -5,6 +5,7 @@
  *      Author: rtoso
  */
 
+#include <iostream>
 #include "BurningDecoder.h"
 using std::vector;
 
@@ -74,8 +75,6 @@ double BurningDecoder::decode(const std::vector< double >& chromosome) const {
 	// // sample fitness is the first allele
 	// return chromosome.front();
 
-    return 10;
-
     std::vector<int> burning_sequence;
     vector<int> burning_vertex;
     vector<int> indexes = sortedIndexes(chromosome);
@@ -88,7 +87,8 @@ double BurningDecoder::decode(const std::vector< double >& chromosome) const {
                 if (std::find(burning_vertex.begin(), burning_vertex.end(), neighbour) == burning_vertex.end())
                     burning_vertex.push_back(neighbour);
 	        }
-	    }	
+	    }
+
         while (find(burning_vertex.begin(), burning_vertex.end(), *index) != burning_vertex.end())
             index++;
         if (indexes.end()-index > 0) {
@@ -96,6 +96,9 @@ double BurningDecoder::decode(const std::vector< double >& chromosome) const {
             burning_vertex.push_back(*index);
         }
         turns++;
+        // for (auto i : burning_vertex)
+        //     std::cout << i << " ";
+        //  std::cout << std::endl;
     }
 
     return (double) turns;
