@@ -6,6 +6,7 @@
  */
 
 #include <iostream>
+#include "graph.h"
 #include "BurningDecoder.h"
 using std::vector;
 
@@ -96,9 +97,7 @@ double BurningDecoder::decode(const std::vector< double >& chromosome) const {
             burning_vertex.push_back(*index);
         }
         turns++;
-        // for (auto i : burning_vertex)
-        //     std::cout << i << " ";
-        //  std::cout << std::endl;
+
     }
 
     return (double) turns;

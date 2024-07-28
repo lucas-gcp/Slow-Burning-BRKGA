@@ -1,4 +1,5 @@
 #include <iostream>
+#include "graph.h"
 #include "BurningDecoder.h"
 #include "MTRand.h"
 #include "BRKGA.h"
@@ -18,16 +19,16 @@ int main(int argc, char* argv[]) {
                                { 7, 8 },
                                { 7, 9 }};
 
-	const unsigned n = 10;		// size of chromosomes
-	const unsigned p = 100;	// size of population
-	const double pe = 0.20;		// fraction of population to be the elite-set
-	const double pm = 0.10;		// fraction of population to be replaced by mutants
-	const double rhoe = 0.70;	// probability that offspring inherit an allele from elite parent
-	const unsigned K = 3;		// number of independent populations
-	const unsigned MAXT = 1;	// number of threads for parallel decoding
+	const unsigned n = graphSize(graph);  // size of chromosomes
+	const unsigned p = 100;				  // size of population
+	const double pe = 0.20;				  // fraction of population to be the elite-set
+	const double pm = 0.10;				  // fraction of population to be replaced by mutants
+	const double rhoe = 0.70;			  // probability that offspring inherit an allele from elite parent
+	const unsigned K = 3;				  // number of independent populations
+	const unsigned MAXT = 1;			  // number of threads for parallel decoding
 	
 
-	BurningDecoder decoder(graph);			// initialize the decoder
+	BurningDecoder decoder(graph);		// initialize the decoder
 	
 	const long unsigned rngSeed = 0;	// seed to the random number generator
 	MTRand rng(rngSeed);				// initialize the random number generator
