@@ -1,11 +1,40 @@
 #include <iostream>
+#include <fstream>
 #include "graph.h"
 #include "BurningDecoder.h"
 #include "MTRand.h"
 #include "BRKGA.h"
 
-int main(int argc, char* argv[]) {
+vector<vector<int>> readGraph(std::string filepath)
+{
+	// TODO
+}
 
+vector<int> readGraphInfo(std::string filepath)
+{
+	std::ifstream graph_txt(filepath);
+	std::string parser;
+	vector<int> info;
+	std::string line;
+	std::getline(graph_txt, line);
+	std::string pos;
+	for (auto i : line) {
+		if (i != ' ') {
+			pos.push_back(i);
+		} else {
+			info.push_back(stoi(pos));
+			pos = "";
+		}
+	}
+	info.push_back(stoi(pos));
+	return info;
+}
+
+int main(int argc, char* argv[]) {
+	std::string graph_path = "./graph.txt";
+	vector<int> graph_info(readGraphInfo(graph_path));
+	std::cout << std::endl;
+	vector<vector<int>> graph1(readGraph(graph_path));
     std::vector<std::vector<int>> graph{ { 0, 1 }, 
                                { 0, 2 },
                                { 0, 3 },
