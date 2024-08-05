@@ -5,48 +5,47 @@
 #include "MTRand.h"
 #include "BRKGA.h"
 
-vector<vector<int>> readGraph(std::string filepath)
+vector<int> parseLine(std::string line)
 {
-	// TODO
+	vector<int> parsed_line;
+	std::string parser;
+	for (auto i: line) {
+		if (i != ' ') {
+			parser.push_back(i);
+		} else {
+			parsed_line.push_back(stoi(parser));
+			parser = std::string();
+		}
+	}
+	parsed_line.push_back(stoi(parser));
+	return parsed_line;
 }
 
 vector<int> readGraphInfo(std::string filepath)
 {
 	std::ifstream graph_txt(filepath);
-	std::string parser;
 	vector<int> info;
 	std::string line;
 	std::getline(graph_txt, line);
-	std::string pos;
-	for (auto i : line) {
-		if (i != ' ') {
-			pos.push_back(i);
-		} else {
-			info.push_back(stoi(pos));
-			pos = "";
-		}
-	}
-	info.push_back(stoi(pos));
+	info = parseLine(line);
 	return info;
+}
+
+vector<vector<int>> readGraph(std::string filepath)
+{
+	std::ifstream graph_txt(filepath);
+	vector<vector<int>> graph;
+	std::string line;
+	std::getline(graph_txt, line);
+	while (std::getline(graph_txt, line))
+		graph.push_back(parseLine(line));
+	return graph;
 }
 
 int main(int argc, char* argv[]) {
 	std::string graph_path = "./graph.txt";
 	vector<int> graph_info(readGraphInfo(graph_path));
-	std::cout << std::endl;
-	vector<vector<int>> graph1(readGraph(graph_path));
-    std::vector<std::vector<int>> graph{ { 0, 1 }, 
-                               { 0, 2 },
-                               { 0, 3 },
-                               { 1, 2 },
-                               { 1, 4 },
-                               { 2, 4 },
-                               { 2, 5 },
-                               { 4, 8 },
-                               { 4, 6 },
-                               { 5, 7 },
-                               { 7, 8 },
-                               { 7, 9 }};
+	vector<vector<int>> graph(readGraph(graph_path));
 
 	const unsigned n = graphSize(graph);  // size of chromosomes
 	const unsigned p = 100;				  // size of population
