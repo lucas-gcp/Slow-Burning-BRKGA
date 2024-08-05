@@ -43,11 +43,17 @@ vector<vector<int>> readGraph(std::string filepath)
 }
 
 int main(int argc, char* argv[]) {
-	std::string graph_path = "./graph.txt";
+	std::string graph_path = (std::string)argv[1];
 	vector<int> graph_info(readGraphInfo(graph_path));
 	vector<vector<int>> graph(readGraph(graph_path));
 
-	const unsigned n = graphSize(graph);  // size of chromosomes
+	for (auto i : graph) {
+		for (auto j : i)
+			std::cout << j << " ";
+		std::cout << std::endl;
+	}
+
+	const unsigned n = graph_info[0];	  // size of chromosomes
 	const unsigned p = 100;				  // size of population
 	const double pe = 0.20;				  // fraction of population to be the elite-set
 	const double pm = 0.10;				  // fraction of population to be replaced by mutants
@@ -61,10 +67,8 @@ int main(int argc, char* argv[]) {
 	const long unsigned rngSeed = 0;	// seed to the random number generator
 	MTRand rng(rngSeed);				// initialize the random number generator
 	
-	std::cout << "Antes" << std::endl;
 	// initialize the BRKGA-based heuristic
 	BRKGA< BurningDecoder, MTRand > algorithm(n, p, pe, pm, rhoe, decoder, rng, K, MAXT);
-	std::cout << "Depois" << std::endl;
 	unsigned generation = 0;		// current generation
 	const unsigned X_INTVL = 50;	// exchange best individuals at every 100 generations
 	const unsigned X_NUMBER = 2;	// exchange top 2 best
