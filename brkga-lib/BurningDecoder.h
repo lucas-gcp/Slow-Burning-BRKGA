@@ -30,7 +30,11 @@ public:
 
 	~BurningDecoder();
 
+	std::tuple<int, vector<int>> decoder(const std::vector< double >& chromosome) const;
+
 	double decode(const std::vector< double >& chromosome) const;
+
+	vector<int> getBurningSequence(const std::vector< double >& chromosome) const;
 
 private:
 
