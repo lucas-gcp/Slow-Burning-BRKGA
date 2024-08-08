@@ -4,9 +4,12 @@ CFLAGS= -O3 -fopenmp
 
 all: samplecode
 
-samplecode: BurningDecoder.o samplecode.o
-	$(CPP) $(CFLAGS) BurningDecoder.o samplecode.o -o samplecode
-        
+samplecode: graph.o BurningDecoder.o samplecode.o 
+	$(CPP) $(CFLAGS) graph.o BurningDecoder.o samplecode.o -o samplecode
+
+graph.o: graph.cpp
+	$(CPP) $(CFLAGS) -c graph.cpp
+
 BurningDecoder.o: BurningDecoder.cpp
 	$(CPP) $(CFLAGS) -c BurningDecoder.cpp
 
